@@ -1,0 +1,33 @@
+erDiagram
+  NOTE_RECORD {
+    string source
+    string note_id
+    string title
+    string content_text
+    string folder
+    string account
+    string created_at
+    string updated_at
+    string hash
+    boolean deleted
+  }
+
+  NOTES_STATE {
+    string note_id PK
+    string updated_at
+    string hash
+    string last_seen_at
+  }
+
+  OUTBOX {
+    int id PK
+    string payload_json
+    string status
+    int retry_count
+    string last_error
+    string created_at
+    string updated_at
+  }
+
+  NOTE_RECORD ||--|| NOTES_STATE : tracks
+  NOTE_RECORD ||--o{ OUTBOX : emits_delta

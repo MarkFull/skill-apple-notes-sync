@@ -1,0 +1,27 @@
+flowchart LR
+  subgraph MAC
+    A[Apple Notes]
+    B[Notes Watcher]
+    C[Checkpoint DB]
+    D[Outbox Queue]
+    A --> B
+    B --> C
+    C --> B
+    B --> D
+  end
+
+  subgraph HOST
+    E[Ingestion API]
+    F[QMD Upsert Adapter]
+    G[QMD Index]
+    H[Retrieval API]
+    I[OpenClaw Tool notes_search]
+    E --> F
+    F --> G
+    H --> G
+    I --> H
+  end
+
+  D --> E
+  J[User Query in OpenClaw] --> I
+  I --> K[Grounded Answer]

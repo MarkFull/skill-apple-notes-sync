@@ -1,0 +1,27 @@
+flowchart LR
+  subgraph MAC["Mac (Producer)"]
+    A[Apple Notes]
+    B["Notes Watcher<br/>(osascript/JXA, 10s poll)"]
+    C[("Checkpoint DB<br/>SQLite")]
+    D[(Outbox Queue)]
+
+    A --> B
+    B <--> C
+    B --> D
+  end
+
+  subgraph HOST["OpenClaw Host (Linux)"]
+    E["Ingestion API<br/>/ingest/apple-notes/batch"]
+    F[QMD Upsert Adapter]
+    G[("QMD Index<br/>chunks + embeddings + metadata")]
+    H["Retrieval API<br/>/search/apple-notes"]
+    I["OpenClaw Tool<br/>notes_search"]
+  end
+
+  D -->|HTTPS + Bearer Token| E
+  E --> F --> G
+  H --> G
+  I --> H
+
+  J[User Query in OpenClaw] --> I
+  I --> K[Grounded Answer]

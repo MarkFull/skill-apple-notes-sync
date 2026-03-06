@@ -1,0 +1,23 @@
+sequenceDiagram
+  participant N as Apple Notes
+  participant W as Mac Watcher
+  participant S as Checkpoint SQLite
+  participant API as Ingestion API
+  participant Q as QMD
+  participant OC as OpenClaw
+
+  loop every 10s
+    W->>N: Read notes (id/title/content/updated_at)
+    W->>S: Compare hash + updated_at
+    S-->>W: changed/new/deleted set
+    W->>API: POST /ingest/apple-notes/batch
+    API->>Q: upsert/delete chunks by doc_id
+    Q-->>API: status
+    API-->>W: per-item result
+    W->>S: update checkpoint
+  end
+
+  OC->>API: POST /search/apple-notes (query, filters)
+  API->>Q: semantic retrieval + metadata filter
+  Q-->>API: top-k snippets
+  API-->>OC: ranked results
