@@ -7,12 +7,11 @@ Build a near-real-time indexing pipeline from Apple Notes into QMD, then expose 
 - Incremental sync (changed notes only)
 - Practical real-time UX (target: 5–15s indexing latency)
 
-## Current Environment Check (confirmed)
-- Apple Notes readable on target Mac (`osascript` works)
-- Notes count check succeeded (non-zero)
-- Sample note title read succeeded
-- `qmd` exists on OpenClaw host (Linux)
-- Mac side currently does **not** have `qmd` in PATH (plan uses host-side QMD)
+## Environment Checklist
+- macOS can read Apple Notes via `osascript`
+- host machine has `qmd` available in PATH
+- host API endpoint is reachable from macOS (LAN/Tailscale/public)
+- `INGEST_TOKEN` / `SEARCH_TOKEN` are configured before startup
 
 ## Architecture (high level)
 1. **Mac Watcher** reads Apple Notes changes continuously
