@@ -1,5 +1,14 @@
 # Commands (host + macOS)
 
+## 0) Get runtime code
+
+The skill is orchestration + setup guidance. Runtime code lives in a separate project repo.
+
+```bash
+git clone <runtime-repo-url> apple-notes-sync-runtime
+cd apple-notes-sync-runtime
+```
+
 ## Host: gateway + API
 
 Run your gateway status/start commands for your environment, then run the ingest API:
