@@ -67,7 +67,7 @@ What this does:
 curl -sS -X POST 'http://127.0.0.1:8787/search/apple-notes' \
   -H 'Authorization: Bearer <SEARCH_TOKEN>' \
   -H 'Content-Type: application/json' \
-  -d '{"query":"App ideas","top_k":3}'
+  -d '{"query":"meeting notes","top_k":3}'
 ```
 
 ---

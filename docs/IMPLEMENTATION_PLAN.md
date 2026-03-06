@@ -30,7 +30,7 @@
 - [ ] Add OpenClaw `notes_search` tool mapping
 
 ### Exit Criteria (MVP)
-- [ ] Full bootstrap of 812 notes succeeds
+- [ ] Full bootstrap of all notes succeeds
 - [ ] Edit in Notes appears in search <= 15s
 - [ ] No duplicate chunks after repeated updates
 

@@ -19,7 +19,7 @@
     {
       "source": "apple_notes",
       "note_id": "n_123",
-      "title": "App ideas",
+      "title": "Sample note",
       "content_text": "...",
       "content_html": null,
       "folder": "Ideas",
@@ -80,7 +80,7 @@
     {
       "score": 0.84,
       "note_id": "n_123",
-      "title": "App ideas",
+      "title": "Sample note",
       "snippet": "...",
       "folder": "Ideas",
       "updated_at": "2026-03-05T10:00:00Z"

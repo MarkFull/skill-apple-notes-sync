@@ -9,8 +9,8 @@ Build a near-real-time indexing pipeline from Apple Notes into QMD, then expose 
 
 ## Current Environment Check (confirmed)
 - Apple Notes readable on target Mac (`osascript` works)
-- Notes count check succeeded (`812`)
-- First note title read succeeded (`App ideas`)
+- Notes count check succeeded (non-zero)
+- Sample note title read succeeded
 - `qmd` exists on OpenClaw host (Linux)
 - Mac side currently does **not** have `qmd` in PATH (plan uses host-side QMD)
 
