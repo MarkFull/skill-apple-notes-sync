@@ -49,6 +49,22 @@ curl -sS -X POST 'http://127.0.0.1:8787/search/apple-notes' \
   -d '{"query":"meeting notes","top_k":3}'
 ```
 
+OpenClaw-facing alias (`notes_search` mental model):
+
+```bash
+curl -sS -X POST 'http://127.0.0.1:8787/tool/notes_search' \
+  -H 'Authorization: Bearer <SEARCH_TOKEN>' \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"meeting notes","top_k":3}'
+```
+
+No-curl helper (recommended inside OpenClaw automation):
+
+```bash
+cd <project-dir>
+./scripts/notes_search.sh --query 'meeting notes' --top-k 3 --pretty
+```
+
 ## Common fixes
 
 ### 401 unauthorized

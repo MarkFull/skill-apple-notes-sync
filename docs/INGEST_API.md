@@ -57,7 +57,14 @@
 
 ## 2) Search
 
-`POST /search/apple-notes`
+Primary endpoint:
+- `POST /search/apple-notes`
+
+OpenClaw tool alias (same request/response/auth):
+- `POST /tool/notes_search`
+
+CLI helper for OpenClaw automation (no manual curl):
+- `./scripts/notes_search.sh --query '<text>' --top-k 5 --pretty`
 
 ### Request
 ```json

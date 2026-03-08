@@ -1,6 +1,6 @@
 ---
 name: apple-notes-sync
-description: Bootstrap and operate an Apple Notes incremental sync stack (gateway + ingest API + macOS watcher). Use when asked to set up, package, troubleshoot, or share Apple Notes sync for users, including requests mentioning Codex, reusable setup skills, LaunchAgent watcher setup, or end-to-end validation.
+description: Bootstrap and operate an Apple Notes incremental sync stack (gateway + ingest API + macOS watcher). Use when asked to set up, package, troubleshoot, share, or directly query Apple Notes in OpenClaw (`notes_search`) for users, including requests mentioning Codex, reusable setup skills, LaunchAgent watcher setup, or end-to-end validation.
 ---
 
 # Apple Notes Sync
@@ -48,7 +48,16 @@ Validate both paths:
 
 If first sync is slow, treat as expected for initial scan and validate incremental updates on later runs.
 
-### 5) Package for reuse
+### 5) OpenClaw direct notes search (no manual curl)
+For user requests like “search my notes / note_search / notes_search”, call:
+- `./scripts/notes_search.sh --query '<text>' --top-k 5 --pretty`
+
+Behavior of this helper:
+- Tries `/tool/notes_search` first, then falls back to `/search/apple-notes`
+- Uses `NOTES_SEARCH_TOKEN` / `SEARCH_TOKEN` automatically
+- If env token is missing, attempts to read token from running `notes_sync.server` process env on host
+
+### 6) Package for reuse
 When user asks for distribution:
 - Keep one skill containing host + Mac setup
 - Include one-command installer + service controls + concise troubleshooting

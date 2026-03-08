@@ -80,14 +80,21 @@ def build_app() -> FastAPI:
             items=result_items,
         )
 
-    @app.post("/search/apple-notes", response_model=SearchResponse)
-    def search_notes(req: SearchRequest, _: None = Depends(require_search_token)) -> SearchResponse:
+    def _run_search(req: SearchRequest) -> SearchResponse:
         try:
             rows = indexer.search(req.query, req.top_k, filters=req.filters, mode=req.mode)
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"search failed: {e}") from e
-
         return SearchResponse(ok=True, results=rows)
+
+    @app.post("/search/apple-notes", response_model=SearchResponse)
+    def search_notes(req: SearchRequest, _: None = Depends(require_search_token)) -> SearchResponse:
+        return _run_search(req)
+
+    @app.post("/tool/notes_search", response_model=SearchResponse)
+    def tool_notes_search(req: SearchRequest, _: None = Depends(require_search_token)) -> SearchResponse:
+        # OpenClaw-facing alias route that keeps the user mental model as "notes_search".
+        return _run_search(req)
 
     @app.post("/admin/qmd/update")
     def qmd_update(_: None = Depends(require_ingest_token)) -> Response:

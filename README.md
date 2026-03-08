@@ -124,6 +124,26 @@ curl -sS -X POST 'http://127.0.0.1:8787/search/apple-notes' \
   -d '{"query":"qmd indexing plan","top_k":5,"mode":"search"}'
 ```
 
+### OpenClaw-friendly alias (`notes_search` mental model)
+
+```bash
+curl -sS -X POST 'http://127.0.0.1:8787/tool/notes_search' \
+  -H 'Authorization: Bearer change-me-search' \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"这周会议纪要","top_k":5,"mode":"search"}'
+```
+
+### OpenClaw direct call helper (no manual curl)
+
+```bash
+./scripts/notes_search.sh --query '这周会议纪要' --top-k 5 --pretty
+```
+
+Helper behavior:
+- auto-detects token from `NOTES_SEARCH_TOKEN` / `SEARCH_TOKEN`
+- if env token is missing, tries reading token from running `notes_sync.server` process env
+- tries `/tool/notes_search` first, then falls back to `/search/apple-notes`
+
 > `mode="search"` is default and fast. `mode="query"` may trigger heavier model downloads in QMD.
 
 ---
@@ -164,4 +184,4 @@ For production sharing, provide this repo + the one-command mac installer:
 ```
 
 ## Next Step (Optional)
-Add an OpenClaw-facing tool wrapper (`notes_search`) that calls `/search/apple-notes` directly.
+Expose this helper behind an MCP/custom tool so `notes_search` appears as a first-class callable tool in your OpenClaw runtime.

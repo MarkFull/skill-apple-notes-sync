@@ -90,6 +90,14 @@ def test_api_ingest_and_search(monkeypatch):
     assert r3.status_code == 200
     assert r3.json()["results"][0]["note_id"] == "n1"
 
+    r3b = client.post(
+        "/tool/notes_search",
+        json={"query": "sync", "top_k": 2, "mode": "search"},
+        headers={"Authorization": "Bearer search-token"},
+    )
+    assert r3b.status_code == 200
+    assert r3b.json()["results"][0]["note_id"] == "n1"
+
     r4 = client.post("/admin/qmd/update", headers={"Authorization": "Bearer ingest-token"})
     assert r4.status_code == 200
     assert r4.text == "ok"
